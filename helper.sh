@@ -166,7 +166,7 @@ get_aws_internal_ip() {
     require_command curl
     local ip=$(curl --connect-timeout 5 http://169.254.169.254/latest/meta-data/local-ipv4 2> /dev/null)
     if [[ "$?" -ne 0 ]]; then
-        warning "It appears you are not running on AWS but 'get_aws_internal_ip' only works on AW. We don't echo anything."
+        warning "It appears you are not running on AWS but 'get_aws_internal_ip' only works on AWS."
         return 1
     fi
     echo ${ip}
@@ -177,7 +177,7 @@ get_aws_external_ip() {
     require_command curl
     local ip=$(curl --connect-timeout 5 http://169.254.169.254/latest/meta-data/public-ipv4 2> /dev/null)
     if [[ "$?" -ne 0 ]]; then
-        warning "It appears you are not running on AWS but 'get_aws_internal_ip' only works on AWS. We don't echo anything."
+        warning "It appears you are not running on AWS but 'get_aws_internal_ip' only works on AWS."
         return 1
     fi
     echo ${ip}
