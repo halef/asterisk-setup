@@ -73,5 +73,5 @@ echo "export ASTERISK_HOME=${install_location}" >> /etc/bash.bashrc
 
 info "Installation complete."
 info "Run 'source /etc/bash.bashrc'"
-info "Then run 'bash ${SCRIPT_DIR}/configure.sh' next."
+info "Then run 'bash ${SCRIPT_DIR}/update-conf.sh' next."
 
