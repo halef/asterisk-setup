@@ -13,7 +13,10 @@ ASTERISK_HOME=/opt/asterisk
 
 
 if [ "$1" == "--aws" ]; then
-    localnet=$1
+    localnet=$(get_aws_internal_ip)
+    if [ $? -gt 0 ]; then
+        fatal "Specified --aws but it seems like we are not running on AWS."
+    fi
 fi
 
 # Replace configuration
@@ -25,7 +28,7 @@ sed -i -e "s|%%ASTERISK_HOME%%|${ASTERISK_HOME}|g" ${ASTERISK_HOME}/etc/asterisk
 sed -i -e "s|%%LOCALNET%%|${localnet}|g" ${ASTERISK_HOME}/etc/asterisk/sip.conf
 
 # TODO(langep): Modify this for external asterisk server
-sed -i -e "s|%%EXTERNHOST%%|;|g" ${localnet}/etc/asterisk/sip.conf
+sed -i -e "s|%%EXTERNHOST%%|;|g" ${ASTERISK_HOME}/etc/asterisk/sip.conf
 
 chown -R asterisk ${ASTERISK_HOME}
 
