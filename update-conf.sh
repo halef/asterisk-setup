@@ -17,6 +17,8 @@ if [ "$1" == "--aws" ]; then
     if [ $? -gt 0 ]; then
         fatal "Specified --aws but it seems like we are not running on AWS."
     fi
+else
+    localnet=$1
 fi
 
 # Replace configuration
