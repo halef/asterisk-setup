@@ -34,5 +34,5 @@ sed -i -e "s|%%EXTERNHOST%%|;|g" ${ASTERISK_HOME}/etc/asterisk/sip.conf
 
 chown -R asterisk ${ASTERISK_HOME}
 
-warn "Change default password and peer [1000] password in "
-warn "${ASTERISK_HOME}/etc/asterisk/sip.conf."
+warning "Change default password and peer [1000] password in "
+warning "${ASTERISK_HOME}/etc/asterisk/sip.conf."
