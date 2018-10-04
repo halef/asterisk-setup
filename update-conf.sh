@@ -23,7 +23,7 @@ fi
 
 # Replace configuration
 rm -rf ${ASTERISK_HOME}/etc/asterisk/*
-cp -r ${SCRIPT_DIR}/config/* ${ASTERISK_HOME}/etc/asterisk/.
+cp -r ${SCRIPT_DIR}/conf/* ${ASTERISK_HOME}/etc/asterisk/.
 
 # TODO(langep): Replacements here.
 sed -i -e "s|%%ASTERISK_HOME%%|${ASTERISK_HOME}|g" ${ASTERISK_HOME}/etc/asterisk/asterisk.conf
