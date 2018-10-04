@@ -6,10 +6,10 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Set paramaters
 # TODO(langep): Make parameters configurable
-download_location=~/src
+download_location=/usr/local/src/asterisk
 install_location=/opt/asterisk
-version=14.7.6
-archive=${archive_name}.tar.gz
+version=14.7.8
+archive=asterisk-${version}.tar.gz
 unpacked_dir_name=asterisk-${version}
 download_url=https://downloads.asterisk.org/pub/telephony/asterisk/old-releases/$archive
 
@@ -32,8 +32,8 @@ require_root
 
 # Update packages and install dependencies
 apt-get update
-apt-get install -y --no-install-recommends wget whois build-essential \ 
-    ncurses-dev uuid-dev libjansson-dev libxml2-dev libsqlite3-dev \ 
+apt-get install -y --no-install-recommends wget whois build-essential \
+    ncurses-dev uuid-dev libjansson-dev libxml2-dev libsqlite3-dev \
     libssl-dev
 
 # Make download and install directories
