@@ -13,7 +13,7 @@ ASTERISK_HOME=/opt/asterisk
 
 
 if [ "$1" == "--aws" ]; then
-    localnet=$(get_aws_internal_ip)
+    localnet=$(get_aws_vpc_cidr)
     if [ $? -gt 0 ]; then
         fatal "Specified --aws but it seems like we are not running on AWS."
     fi
