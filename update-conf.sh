@@ -21,16 +21,20 @@ else
     localnet=$1
 fi
 
+if [[ -z $2 ]]; then
+    external_host=;
+else
+    external_host="externhost = $2"
+fi
+
 # Replace configuration
 rm -rf ${ASTERISK_HOME}/etc/asterisk/*
 cp -r ${SCRIPT_DIR}/conf/* ${ASTERISK_HOME}/etc/asterisk/.
 
-# TODO(langep): Replacements here.
 sed -i -e "s|%%ASTERISK_HOME%%|${ASTERISK_HOME}|g" ${ASTERISK_HOME}/etc/asterisk/asterisk.conf
 sed -i -e "s|%%LOCALNET%%|${localnet}|g" ${ASTERISK_HOME}/etc/asterisk/sip.conf
 
-# TODO(langep): Modify this for external asterisk server
-sed -i -e "s|%%EXTERNHOST%%|;|g" ${ASTERISK_HOME}/etc/asterisk/sip.conf
+sed -i -e "s|%%EXTERNHOST%%|${external_host}|g" ${ASTERISK_HOME}/etc/asterisk/sip.conf
 
 chown -R asterisk ${ASTERISK_HOME}
 
