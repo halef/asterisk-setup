@@ -166,7 +166,7 @@ get_aws_internal_ip() {
     require_command curl
     local ip=$(curl --connect-timeout 5 http://169.254.169.254/latest/meta-data/local-ipv4 2> /dev/null)
     if [[ "$?" -ne 0 ]]; then
-        warning "It appears you are not running on AWS but 'get_aws_internal_ip' only works on AWS."
+        warning "It appears that you are not running on AWS but 'get_aws_internal_ip' only works on AWS."
         return 1
     fi
     echo ${ip}
@@ -175,11 +175,26 @@ get_aws_internal_ip() {
 # Get AWS external IP
 get_aws_external_ip() {
     require_command curl
-    local ip=$(curl --connect-timeout 5 http://169.254.169.254/latest/meta-data/public-ipv4 2> /dev/null)
+    local ip=$(curl --connect-timeout 5 -s http://169.254.169.254/latest/meta-data/public-ipv4)
     if [[ "$?" -ne 0 ]]; then
-        warning "It appears you are not running on AWS but 'get_aws_internal_ip' only works on AWS."
+        warning "It appears that you are not running on AWS but 'get_aws_internal_ip' only works on AWS."
         return 1
     fi
     echo ${ip}
 }
 
+# Get AWS VPC CIDR block
+get_aws_vpc_cidr() {
+    require_command curl
+    local mac=$(curl --connect-timeout 5 -s http://169.254.169.254/latest/meta-data/network/interfaces/macs/ | head -n1 | tr -d '/')
+    if [[ "$?" -ne 0 ]]; then
+    	warning "It appears that you are not running on AWS but 'get_aws_vpc_cidr' only works on AWS."
+	return 1
+    fi
+    local cidr=$(curl --connect-timeout 5 -s http://169.254.169.254/latest/meta-data/network/interfaces/macs/$mac/vpc-ipv4-cidr-block/)
+    if [[ "$?" -ne 0 ]]; then
+    	warning "It appears that you are not running on AWS but 'get_aws_vpc_cidr' only works on AWS."
+	return 1
+    fi
+    echo ${cidr}
+}
