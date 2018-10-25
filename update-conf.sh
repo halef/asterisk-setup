@@ -21,7 +21,13 @@ else
     localnet=$1
 fi
 
-if [[ -z $2 ]]; then
+if [[ -z "$2" ]]; then
+    CONFIG_DIR=${SCRIPT_DIR}/config
+else
+    CONFIG_DIR=$2
+fi
+
+if [[ -z $3 ]]; then
     external_host=;
 else
     external_host="externhost = $2"
@@ -29,7 +35,7 @@ fi
 
 # Replace configuration
 rm -rf ${ASTERISK_HOME}/etc/asterisk/*
-cp -r ${SCRIPT_DIR}/conf/* ${ASTERISK_HOME}/etc/asterisk/.
+cp -r ${CONFIG_DIR}/* ${ASTERISK_HOME}/etc/asterisk/.
 
 sed -i -e "s|%%ASTERISK_HOME%%|${ASTERISK_HOME}|g" ${ASTERISK_HOME}/etc/asterisk/asterisk.conf
 sed -i -e "s|%%LOCALNET%%|${localnet}|g" ${ASTERISK_HOME}/etc/asterisk/sip.conf
