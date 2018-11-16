@@ -67,6 +67,9 @@ chmod +x /etc/init.d/asterisk
 sed -i -e "s|%%ASTERISK_HOME%%|${install_location}|g" /etc/init.d/asterisk
 update-rc.d asterisk defaults
 
+# Install agi script
+cp -r ${SCRIPT_DIR}/agi ${install_location}/agi
+
 chown -R asterisk $install_location
 
 echo "export ASTERISK_HOME=${install_location}" >> /etc/bash.bashrc
